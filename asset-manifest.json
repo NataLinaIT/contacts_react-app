@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/contacts_react-app/static/css/main.bfa22019.chunk.css",
+    "main.js": "/contacts_react-app/static/js/main.d2bb21cd.chunk.js",
+    "main.js.map": "/contacts_react-app/static/js/main.d2bb21cd.chunk.js.map",
+    "runtime-main.js": "/contacts_react-app/static/js/runtime-main.06fa0330.js",
+    "runtime-main.js.map": "/contacts_react-app/static/js/runtime-main.06fa0330.js.map",
+    "static/js/2.c8fe2f2f.chunk.js": "/contacts_react-app/static/js/2.c8fe2f2f.chunk.js",
+    "static/js/2.c8fe2f2f.chunk.js.map": "/contacts_react-app/static/js/2.c8fe2f2f.chunk.js.map",
+    "static/js/3.d081ab23.chunk.js": "/contacts_react-app/static/js/3.d081ab23.chunk.js",
+    "static/js/3.d081ab23.chunk.js.map": "/contacts_react-app/static/js/3.d081ab23.chunk.js.map",
+    "index.html": "/contacts_react-app/index.html",
+    "static/css/main.bfa22019.chunk.css.map": "/contacts_react-app/static/css/main.bfa22019.chunk.css.map",
+    "static/js/2.c8fe2f2f.chunk.js.LICENSE.txt": "/contacts_react-app/static/js/2.c8fe2f2f.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.06fa0330.js",
+    "static/js/2.c8fe2f2f.chunk.js",
+    "static/css/main.bfa22019.chunk.css",
+    "static/js/main.d2bb21cd.chunk.js"
+  ]
+}
