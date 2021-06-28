@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useContacts } from "./useContacts";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { Box, CircularProgress, Typography, TextField } from "@material-ui/core";
+import { Box, CircularProgress, Typography } from "@material-ui/core";
 import { ContactsTable } from "./ContactsTable/ContactsTable";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import { ToggleDataViewMode } from "./ToggleDataViewMode";
 import { DATA_VIEW_MODES } from "./constants";
 import { useDataVieMode } from "./useDataViewMode";
+import ContactFilters from "../ContactsFilters/index";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -25,6 +26,8 @@ const useStyles = makeStyles((theme) =>
 
 const FiltersDefaultValues = {
   fullname: "",
+  gender: "all",
+  nationality: "all",
 };
 
 const filterByFullname = ({ first, last }, fullname) => {
@@ -34,6 +37,20 @@ const filterByFullname = ({ first, last }, fullname) => {
   );
 };
 
+const filterByGender = (value, gender) => {
+  if (gender === "all") {
+    return true;
+  }
+  return value === gender;
+};
+
+const filterByNationality = (value, nationality) => {
+  if (nationality === "all") {
+    return true;
+  }
+  return value === nationality;
+};
+
 export const Contacts = () => {
   const classes = useStyles();
   const contacts = useContacts();
@@ -41,17 +58,21 @@ export const Contacts = () => {
 
   const [filters, setFilters] = useState(FiltersDefaultValues);
 
-  const handleChangeFilter = (event) => {
+  const updateFilter = (name, value) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
-      [event.target.name]: event.target.value,
+      [name]: value,
     }));
   };
 
-  const filteredContacts = contacts.data.filter((c) =>
-    filterByFullname(c.name, filters.fullname)
-  );
+  const clearFilters = () => {
+    setFilters(FiltersDefaultValues)
+  }
 
+  const filteredContacts = contacts.data
+    .filter((c) => filterByFullname(c.name, filters.fullname))
+    .filter((c) => filterByGender(c.gender, filters.gender))
+    .filter((c) => filterByNationality(c.nat, filters.nationality));
 
   return (
     <Container className={classes.root}>
@@ -68,21 +89,12 @@ export const Contacts = () => {
           </Box>
         </Grid>
         <Grid item xs={12} className={classes.filtersContainer}>
-          <Box display="flex">
-            <TextField
-              name="fullname"
-              label="Fullname"
-              variant="outlined"
-              size="small"
-              value={filters.fullname}
-              onChange={handleChangeFilter}
-            />
-          </Box>
+          <ContactFilters filters={filters} updateFilter={updateFilter} clearFilters={clearFilters} />
         </Grid>
         <Grid item xs={12}>
           {(() => {
             if (contacts.isLoading) {
-              return <CircularProgress data-testid="contacts-loader"/>;
+              return <CircularProgress data-testid="contacts-loader" />;
             }
             if (contacts.isError) {
               return <div data-testid="contacts-error">... error</div>;
